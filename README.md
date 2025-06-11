@@ -105,7 +105,7 @@ Aunque actualmente solo se ha realizado una versión inicial, este proyecto pued
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - revisa el archivo [LICENSE.md](LICENSE.md) para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT - revisa el archivo [LICENSE](LICENSE) para más detalles.
 
 ## 🙌 Agradecimientos
 
