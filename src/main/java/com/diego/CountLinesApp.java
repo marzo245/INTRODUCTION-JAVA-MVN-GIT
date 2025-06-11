@@ -7,40 +7,41 @@ package com.diego;
  * Recibe como argumentos de línea de comandos un método y una ruta a archivo o directorio,
  * y cuenta las líneas utilizando la clase LineCounter junto con FileScanner.
  *
- * Uso:
- * java CountLinesApp <método> <ruta>
+ * <p><b>Uso:</b></p>
+ * <pre>
+ * java CountLinesApp tipo ruta
+ * </pre>
  *
- * Donde:
- * <método> puede ser:
- *   - "phy": para contar líneas físicas (todas las líneas del archivo)
- *   - "loc": para contar líneas de código (excluye comentarios y líneas en blanco)
+ * <p><b>Donde:</b></p>
+ * <ul>
+ *   <li><code>tipo</code>: puede ser "phy" para contar líneas físicas (todas las líneas del archivo),
+ *       o "loc" para contar líneas de código (excluye comentarios y líneas en blanco).</li>
+ *   <li><code>ruta</code>: es la ubicación del archivo o directorio a escanear.</li>
+ * </ul>
  *
- * <ruta> es la ubicación del archivo o directorio a escanear.
- *
- * Autor: Diego Chicuazuque
- * Versión: 1.0
+ * @author Diego Chicuazuque
+ * @version 1.0
  */
 public class CountLinesApp {
 
   /**
    * Método principal que ejecuta la aplicación CountLines.
    *
-   * @param args Argumentos de línea de comandos. args[0] debe ser el método ("phy" o "loc"),
+   * @param args Argumentos de línea de comandos.
+   *             args[0] debe ser el tipo de conteo ("phy" o "loc"),
    *             y args[1] debe ser la ruta del archivo o directorio a analizar.
    */
   public static void main(String[] args) {
-    // Verificar que se proporcionen exactamente dos argumentos
     if (args.length != 2) {
-      System.out.println("Uso: java CountLines <método> <ruta>");
+      System.out.println("Uso: java CountLinesApp tipo ruta");
       return;
     }
 
     String method = args[0];
     String path = args[1];
-    int lineCounted = 0;
 
     FileScanner fileScanner = new FileScanner();
-    lineCounted = fileScanner.countLines(path, method);
+    int lineCounted = fileScanner.countLines(path, method);
 
     System.out.println("Líneas totales contadas: " + lineCounted);
   }
