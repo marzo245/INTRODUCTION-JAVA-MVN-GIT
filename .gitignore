@@ -15,3 +15,6 @@ buildNumber.properties
 .project
 # JDT-specific (Eclipse Java Development Tools)
 .classpath
+
+# Permitir solo el index.html si prefieres:
+!target/site/apidocs/index.html
