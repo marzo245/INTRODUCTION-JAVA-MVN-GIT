@@ -1,7 +1,3 @@
-Aquí tienes una versión **mejorada y corregida** del `README.md`, siguiendo el formato estándar, con la información completa que requiere tu proyecto (incluyendo LOC/h, pruebas y diseño). También he corregido el apartado de pruebas automatizadas y estilo, ya que **sí incluye JUnit** y ya lo estás usando.
-
----
-
 # CountLinesApp 📊
 
 Aplicación de línea de comandos en Java para contar líneas de código en archivos `.java`, ya sea a nivel físico (todas las líneas) o lógico (ignorando líneas vacías y comentarios). Utiliza Maven para la construcción y JUnit para pruebas.
@@ -132,6 +128,3 @@ Este proyecto está licenciado bajo la Licencia MIT. Ver archivo [LICENSE](LICEN
 * A los desarrolladores de herramientas libres como JUnit y Maven.
 * A la comunidad Java por sus buenas prácticas y documentación.
 
----
-
-¿Quieres que ahora genere el `design-metaphor.md` con el diagrama de clases y la explicación de diseño?
