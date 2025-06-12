@@ -1,7 +1,3 @@
-Perfecto, aquí tienes el contenido completo para tu archivo `design-metaphor.md`, que incluye el **título**, **autor**, **fecha**, **diagrama de clases (textual)** y una **descripción detallada del diseño**:
-
----
-
 # Design Metaphor - CountLinesApp
 
 **Autor:** Diego Chicuazuque
@@ -59,6 +55,4 @@ La aplicación funciona como un **contador de palabras profesional**, donde:
 * **Reutilización:** `LineCounter` es independiente del origen del archivo (podría usarse en otros proyectos).
 * **Mantenibilidad:** el código es legible, modular y sigue el estilo de Google para Java.
 
----
 
-¿Deseas también una versión visual del diagrama UML en imagen? Puedo generarla en segundos.
