@@ -105,13 +105,47 @@ Consulta el archivo [`DISENO.md`](DISENO.md) para ver:
 * [JUnit 5](https://junit.org/junit5/) para pruebas
 * [Maven](https://maven.apache.org/) para gestión de dependencias y ejecución
 
-## 🧹 Validación de estilo
+## ✅ Integración continua
 
-Puedes usar Checkstyle para verificar el estilo siguiendo la [Guía de estilo de Google para Java](https://google.github.io/styleguide/javaguide.html):
+Este repositorio utiliza **GitHub Actions** para ejecutar automáticamente la compilación del proyecto cada vez que se realiza un push o pull request a la rama `main`.
 
-```bash
-mvn checkstyle:check
-```
+El archivo de configuración del workflow está en [`.github/workflows/maven.yml`](.github/workflows/maven.yml) e incluye los siguientes pasos:
+
+1. **Checkout del repositorio**
+2. **Configuración de Java 17**
+3. **Construcción del proyecto con Maven (`mvn package`)**
+
+💡 Esto permite verificar que el proyecto se construye correctamente antes de ser fusionado o actualizado.
+
+```yaml
+name: Java CI with Maven
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          java-version: '17'
+          distribution: 'temurin'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn -B package --file pom.xml
+
 
 ## 👤 Autor
 
