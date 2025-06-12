@@ -1,6 +1,10 @@
+Aquí tienes una versión **mejorada y corregida** del `README.md`, siguiendo el formato estándar, con la información completa que requiere tu proyecto (incluyendo LOC/h, pruebas y diseño). También he corregido el apartado de pruebas automatizadas y estilo, ya que **sí incluye JUnit** y ya lo estás usando.
+
+---
+
 # CountLinesApp 📊
 
-Aplicación en Java que permite contar líneas de código en archivos `.java`, ya sea a nivel físico (todas las líneas del archivo) o lógico (ignorando líneas vacías y comentarios).
+Aplicación de línea de comandos en Java para contar líneas de código en archivos `.java`, ya sea a nivel físico (todas las líneas) o lógico (ignorando líneas vacías y comentarios). Utiliza Maven para la construcción y JUnit para pruebas.
 
 ## 🚀 Comenzando
 
@@ -11,8 +15,9 @@ Sigue estos pasos para obtener una copia del proyecto, ejecutarlo localmente y e
 Asegúrate de tener instalado:
 
 ```bash
-Java 8 o superior
-Apache Maven 3.x
+Java 8 o superior  
+Apache Maven 3.x  
+Git
 ```
 
 ### 💻 Instalación
@@ -32,83 +37,101 @@ mvn clean install
 
 ## ▶️ Uso de la aplicación
 
-Ejecuta el programa con Maven pasando los argumentos necesarios:
+Ejecuta el programa desde Maven pasando los argumentos requeridos:
 
 ```bash
 mvn exec:java -Dexec.args="phy src/main/java/com/diego/CountLinesApp.java"
 ```
 
-Este comando cuenta las **líneas físicas** del archivo. Para contar **líneas lógicas**, utiliza:
+Este comando cuenta las **líneas físicas** del archivo. Para contar **líneas lógicas**, usa:
 
 ```bash
 mvn exec:java -Dexec.args="loc src/main/java/com/diego/CountLinesApp.java"
 ```
 
-También puedes pasar un **directorio** para analizar todos los `.java` de forma recursiva:
+También puedes pasar un **directorio** para analizar todos los archivos `.java` recursivamente:
 
 ```bash
 mvn exec:java -Dexec.args="loc src/main/java"
 ```
 
-## 🧠 Estructura del Proyecto y Clases Utilizadas
+## 🧠 Estructura del Proyecto
 
-* `CountLinesApp`: clase principal que gestiona los argumentos desde consola y ejecuta la lógica de conteo.
-* `FileScanner`: escanea archivos individuales o directorios para identificar archivos `.java`.
+* `CountLinesApp`: Clase principal que recibe los parámetros por consola.
+* `FileScanner`: Escanea archivos o directorios `.java` y delega el conteo.
+* `LineCounter`: Contiene la lógica para contar líneas físicas o lógicas.
 
-  * Utiliza `Paths.get()` para obtener rutas y `Files.walk()` para recorrer directorios recursivamente.
-* `LineCounter`: contiene la lógica para contar líneas.
+## 🧪 Pruebas
 
-  * **countPhysicalLines**: usa `Files.readAllLines()` para contar todas las líneas.
-  * **countLogicalLines**: omite líneas vacías y comentarios (`//`, `/* */`) usando procesamiento de cadenas.
+El proyecto cuenta con pruebas automatizadas escritas con **JUnit 5**.
 
-## ✅ Ejecutando pruebas
+Para ejecutarlas:
 
-Este proyecto no incluye pruebas automatizadas aún, pero puede extenderse fácilmente con JUnit.
-
-### 🔍 Pruebas de extremo a extremo
-
-Verifica el conteo real sobre archivos de ejemplo:
-
-```java
-assertEquals(10, lineCounter.countLines(Paths.get("src/test/resources/TestFile.java"), "loc"));
+```bash
+mvn test
 ```
 
-### 🧹 Pruebas de estilo
+Se prueban casos como:
 
-Puedes integrar herramientas como Checkstyle para validar el estilo del código:
+* Archivos vacíos
+* Archivos con comentarios
+* Conteo físico vs. lógico
+* Manejo de archivos no `.java`
+* Excepciones por uso incorrecto
+
+### 📋 Reporte de pruebas
+
+Se puede consultar en el archivo [`TESTREPORT.md`](TESTREPORT.md) . Incluye:
+
+* Archivos probados
+* Métodos cubiertos
+* Casos exitosos y fallos simulados
+* Cobertura de entradas y excepciones
+
+## 📐 Diseño
+
+Consulta el archivo [`DISENO.md`](DISENO.md) para ver:
+
+* Diagrama de clases
+* Explicación del diseño
+* Relación entre componentes
+
+## 📊 Métrica LOC/h
+
+* Tiempo estimado de desarrollo: 6 horas
+* LOC producidas (código principal): 61 líneas
+* Productividad: **10.17 LOC/h**
+
+## 🛠️ Construido con
+
+* [Java NIO](https://docs.oracle.com/javase/8/docs/api/java/nio/file/package-summary.html)
+* [Java Streams](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html)
+* [JUnit 5](https://junit.org/junit5/) para pruebas
+* [Maven](https://maven.apache.org/) para gestión de dependencias y ejecución
+
+## 🧹 Validación de estilo
+
+Puedes usar Checkstyle para verificar el estilo siguiendo la [Guía de estilo de Google para Java](https://google.github.io/styleguide/javaguide.html):
 
 ```bash
 mvn checkstyle:check
 ```
 
-## ☁️ Despliegue
-
-Este proyecto se ejecuta localmente, pero puede integrarse a flujos de CI/CD mediante GitHub Actions, Jenkins u otras plataformas.
-
-## 🛠️ Construido con
-
-* [Java NIO](https://docs.oracle.com/javase/8/docs/api/java/nio/file/package-summary.html) - Manipulación de archivos y directorios
-* [Java Streams](https://docs.oracle.com/javase/8/docs/api/java/util/stream/package-summary.html) - Procesamiento funcional de colecciones
-* [Maven](https://maven.apache.org/) - Gestión del proyecto y dependencias
-
-## 🙋‍♂️ Contribuciones
-
-Por favor, revisa [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) para detalles del código de conducta y cómo enviar Pull Requests.
-
-## 📌 Versionado
-
-Aunque actualmente solo se ha realizado una versión inicial, este proyecto puede seguir el esquema de versionado [SemVer](http://semver.org/). Consulta los [tags del repositorio](https://github.com/marzo245/INTRODUCTION-JAVA-MVN-GIT/tags) para versiones futuras.
-
 ## 👤 Autor
 
-* **Diego Chicuazuque** - *Trabajo inicial* - [marzo245](https://github.com/marzo245)
+**Diego Chicuazuque**
+[marzo245](https://github.com/marzo245)
 
 ## 📄 Licencia
 
-Este proyecto está licenciado bajo la Licencia MIT - revisa el archivo [LICENSE](LICENSE) para más detalles.
+Este proyecto está licenciado bajo la Licencia MIT. Ver archivo [LICENSE](LICENSE) para más información.
 
 ## 🙌 Agradecimientos
 
-* A los creadores de Java y sus poderosas bibliotecas
-* A quienes apoyaron y enseñaron buenas prácticas
-* A los desarrolladores del plugin de Maven `exec`
+* A los profesores y mentores que guiaron el desarrollo.
+* A los desarrolladores de herramientas libres como JUnit y Maven.
+* A la comunidad Java por sus buenas prácticas y documentación.
+
+---
+
+¿Quieres que ahora genere el `design-metaphor.md` con el diagrama de clases y la explicación de diseño?
