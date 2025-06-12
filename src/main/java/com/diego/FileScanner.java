@@ -21,40 +21,52 @@ public class FileScanner {
    * @param method  "phy" para líneas físicas, "loc" para líneas de código
    * @return número total de líneas contadas
    */
-  public int countLines(String pathStr, String method) {
-    Path path = Paths.get(pathStr);
-    LineCounter lineCounter = new LineCounter();
-    int lineCounted = 0;
+   public int countLines(String pathStr, String method) {
+        LineCounter lineCounter = new LineCounter();
+        int lineCounted = 0;
 
-    if (!Files.exists(path)) {
-      throw new IllegalArgumentException("La ruta no existe: " + pathStr);
+        try {
+            List<Path> files = resolveFiles(pathStr);
+            for (Path file : files) {
+                lineCounted += lineCounter.countLines(file, method);
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return lineCounted;
     }
 
-    try {
-      List<Path> files = getJavaFiles(path);
-      for (Path file : files) {
-        lineCounted += lineCounter.countLines(file, method);
-      }
-    } catch (IOException e) {
-      e.printStackTrace();
+ private List<Path> resolveFiles(String inputPattern) throws IOException {
+        if (inputPattern.contains("*") || inputPattern.contains("?")) {
+            Path baseDir = Paths.get("").toAbsolutePath(); // directorio raíz del proyecto
+            PathMatcher matcher = FileSystems.getDefault().getPathMatcher("glob:" + inputPattern);
+
+            return Files
+                    .walk(baseDir)
+                    .filter(Files::isRegularFile)
+                    .filter(matcher::matches)
+                    .collect(Collectors.toList());
+        }
+
+        // Si no hay wildcards, tratar como ruta literal
+        Path path = Paths.get(inputPattern);
+        if (!Files.exists(path)) {
+            throw new IllegalArgumentException("Ruta no encontrada: " + inputPattern);
+        }
+
+        if (Files.isRegularFile(path) && path.toString().endsWith(".java")) {
+            return Collections.singletonList(path);
+        }
+
+        if (Files.isDirectory(path)) {
+            return Files
+                    .walk(path)
+                    .filter(Files::isRegularFile)
+                    .filter(p -> p.toString().endsWith(".java"))
+                    .collect(Collectors.toList());
+        }
+
+        return Collections.emptyList();
     }
-
-    return lineCounted;
-  }
-
-  private List<Path> getJavaFiles(Path path) throws IOException {
-    if (Files.isRegularFile(path) && path.toString().endsWith(".java")) {
-      return Collections.singletonList(path);
-    }
-
-    if (Files.isDirectory(path)) {
-      return Files
-        .walk(path)
-        .filter(p -> Files.isRegularFile(p))
-        .filter(p -> p.toString().endsWith(".java"))
-        .collect(Collectors.toList());
-    }
-
-    return Collections.emptyList();
-  }
 }
